@@ -18,6 +18,20 @@
       @enderror
     </div>
     <div class="mb-3">
+      @foreach ($technologies as $technology)
+      <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" 
+        @if ($errors->any())
+          @checked(in_array($technology->id, old('technologies', [])))
+        @else
+          @checked($project->technologies->contains($technology->id))
+        @endif>
+      <label class="form-check-label me-3">
+        {{ $technology->technology }}
+      </label>
+      @endforeach
+
+    </div>
+    <div class="mb-3">
       <label for="preview" class="form-label">preview</label>
       <input type="file" id="preview" class="form-control @error('preview') is-invalid @enderror" maxlength="250" name="preview" value="{{old('preview', $project->preview) }}">
       @error('preview')
@@ -43,5 +57,5 @@
         @endforeach
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">CREATE</button>
+    <button type="submit" class="btn btn-primary">{{ $button }}</button>
   </form>
