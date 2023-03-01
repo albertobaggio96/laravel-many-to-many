@@ -6,6 +6,7 @@
         <div class="row">
           <div><a href="{{ route("admin.projects.index") }}">vai alla lista project</a></div>
           <div><a href="{{ route("admin.types.index") }}">modifica i type</a></div>
+          <div><a href="{{ route("admin.technologies.index") }}">modifica i technologies</a></div>
         @foreach ($projects as $project)
         <article class="flip-card col-4 g-5">
           <div class="flip-card-inner">

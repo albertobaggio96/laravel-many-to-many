@@ -17,5 +17,5 @@
           </div>
       @enderror
     </div>
-    <button type="submit" class="btn btn-primary">CREATE</button>
+    <button type="submit" class="btn btn-primary">{{ $button }}</button>
   </form>

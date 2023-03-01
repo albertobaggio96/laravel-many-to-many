@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\TechnologyController as AdminTechnologyController;
 use App\Http\Controllers\Admin\TypeController as AdminTypeController;
 use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(
     Route::delete("/projects/{slug}/force-delete", [AdminProjectController::class, "forceDelete"])->name("force-delete");
     Route::resource("/projects", AdminProjectController::class);
     Route::resource("/types", AdminTypeController::class);
+    Route::resource("/technologies", AdminTechnologyController::class);
 });
 
 Route::middleware('auth')->group(function () {

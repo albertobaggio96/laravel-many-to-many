@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
-class TypeController extends Controller
+class TechnologyController extends Controller
 {
     protected $rules = [
-        'type'=> 'required|min:2|max:10|unique:types,type'
+        'technology'=> 'required|min:2|max:10|unique:technologies,technology'
     ];
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.type.index', compact('types'));
+        return view('admin.technology.index', compact('technologies'));
     }
 
     /**
@@ -31,7 +31,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.type.create', ['type'=>new Type]);
+        return view('admin.technology.create', ['technology'=>new technology]);
     }
 
     /**
@@ -45,11 +45,11 @@ class TypeController extends Controller
         $rules= $this->rules;
         $data= $request->validate($rules);
 
-        $newType = new Type();
-        $newType->fill($data);
-        $newType->save();
+        $newtechnology = new technology();
+        $newtechnology->fill($data);
+        $newtechnology->save();
 
-        return redirect()->route('admin.types.show', $newType->id);
+        return redirect()->route('admin.technologies.show', $newtechnology->id);
     }
 
     /**
@@ -58,9 +58,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type)
+    public function show(technology $technology)
     {
-        return view('admin.type.show', compact('type'));
+        return view('admin.technology.show', compact('technology'));
     }
 
     /**
@@ -69,9 +69,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(technology $technology)
     {
-        return view('admin.type.edit', compact('type'));
+        return view('admin.technology.edit', compact('technology'));
     }
 
     /**
@@ -81,15 +81,15 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(Request $request, technology $technology)
     {
         $rules= $this->rules;
-        $rules['type']= ['requered', 'string', 'min:2', 'max:10', Rule::unique('types')->ignore($type->id)];
+        $rules['technology']= ['required', 'string', 'min:2', 'max:10', Rule::unique('technologies')->ignore($technology->id)];
         $data= $request->validate($rules);
 
-        $type->update($data);
+        $technology->update($data);
 
-        return redirect()->route('admin.types.show', compact('type'));
+        return redirect()->route('admin.technologies.show', compact('technology'));
     }
 
     /**
