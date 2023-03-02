@@ -17,6 +17,7 @@
         <tr>
           <th scope="col">#id</th>
           <th scope="col">type</th>
+          <th scope="col">count</th>
           <th scope="col">options</th>
         </tr>
       </thead>
@@ -25,10 +26,11 @@
           <tr>
               <td>{{ $type->id }}</td>
               <td>{{ $type->type }}</td>
+              <td>{{ count($type->projects) }}</td>
               <td>
                 <a href="{{ route("admin.types.show", $type->id) }}" class="btn btn-show px-4"><i class="fa-solid fa-eye"></i></a>
                 <a href="{{ route("admin.types.edit", $type->id) }}" class="btn btn-edit px-4"><i class="fa-solid fa-pen-to-square"></i></a>
-                <form class="d-inline delete-element" action="{{ route("admin.types.destroy", $type->id) }}" method="POST" method="POST" data-element-name="{{ $type->id }}">
+                <form class="d-inline delete-element" action="{{ route("admin.types.destroy", $type->id) }}" method="POST" data-element-name="{{ $type->id }}">
                   @csrf
                   @method("DELETE")
                   <button type="submit" class="btn btn-delete px-4" value="delete"><i class="fa-solid fa-trash-can-arrow-up"></i><span>Delete</span></button>

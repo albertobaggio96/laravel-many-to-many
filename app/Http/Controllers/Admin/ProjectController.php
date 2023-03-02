@@ -150,7 +150,7 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route("admin.project.index")->with("message", "$project->title è stato spostato nel cestino")->with("alert-type", "warning");
+        return redirect()->route("admin.projects.index")->with("message", "$project->title è stato spostato nel cestino")->with("alert-type", "warning");
     }
 
     /**
@@ -180,7 +180,7 @@ class ProjectController extends Controller
         }
         Project::where("slug", $slug)->withTrashed()->forceDelete();
 
-        return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato cancellato definitivamente")->with("alert-type", "warning");
+        return redirect()->route("admin.projects.trashed")->with("message", "$titleRestoreProject è stato cancellato definitivamente")->with("alert-type", "warning");
     }
 
     /**
@@ -194,7 +194,7 @@ class ProjectController extends Controller
         $project= Project::onlyTrashed()->where("slug", $slug)->first();
         $titleRestoreProject = $project->title;
         Project::onlyTrashed()->where("slug", $slug)->restore();
-        return redirect()->route("admin.trashed")->with("message", "$titleRestoreProject è stato ripristinato")->with("alert-type", "success");
+        return redirect()->route("admin.projects.trashed")->with("message", "$titleRestoreProject è stato ripristinato")->with("alert-type", "success");
     }
 
     /**
@@ -206,5 +206,14 @@ class ProjectController extends Controller
     public function search(Request $request){
         $projects=Project::where("title", "LIKE", $request->title."%")->orderBy("date", "DESC")->paginate(6);
         return view("admin.project.index", compact("projects"));
+    }
+
+    public function clearType(Project $project){
+
+        $type = $project->type;
+        $project->type_id = null;
+        $project->update();
+
+        return redirect()->route('admin.types.index');
     }
 }

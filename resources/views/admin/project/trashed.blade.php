@@ -18,8 +18,8 @@
           <tr>
             <td>{{ $project->title }}</td>
             <td class="text-center">
-              <a href="{{ route('admin.restore', $project->slug) }}" class="btn btn-warning">Restore</a>
-              <form class="d-inline force-delete-element"action="{{ route('admin.force-delete', $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
+              <a href="{{ route('admin.projects.restore', $project->slug) }}" class="btn btn-warning">Restore</a>
+              <form class="d-inline force-delete-element"action="{{ route('admin.projects.force-delete', $project->slug) }}" method="POST"data-element-name="{{ $project->title }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" value="delete">Delete</button>

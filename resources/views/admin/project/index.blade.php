@@ -11,8 +11,8 @@
 
   <div class="text-center pb-4">
     <a href="{{ route("admin.projects.create") }}" class="btn btn-primary">Add new Project</a>
-    <a href="{{ route("admin.trashed") }}" class="btn btn-secondary">trash</a>
-    <form class="d-flex ms-auto d-inline w-25" action="{{ route("admin.search") }}" method="POST">
+    <a href="{{ route("admin.projects.trashed") }}" class="btn btn-secondary">trash</a>
+    <form class="d-flex ms-auto d-inline w-25" action="{{ route("admin.projects.search") }}" method="POST">
       @csrf
       <input class="form-control me-2" name="title">
       <button class="btn btn-success" type="submit">Search</button>
@@ -39,16 +39,16 @@
             <td>{{ $project->author }}</td>
             <td>{{ $project->date }}</td>
             <td><img src="{{ filter_var($project->preview, FILTER_VALIDATE_URL)  ? $project->preview : asset('storage/'. $project->preview)}}" alt="{{ $project->title }}" class="preview"></td>
-            <td>{{ $project->type->type }}</td>
+            <td>{{ $project->type->type ?? 'type non definito' }}</td>
             <td>
               @foreach ($project->technologies as $technology)
-                {{ $technology->technology }}
+                {{ $technology->technology}}
               @endforeach
             </td>
             <td>
               <a href="{{ route("admin.projects.show", $project->slug) }}" class="btn btn-show px-4"><i class="fa-solid fa-eye"></i></a>
               <a href="{{ route("admin.projects.edit", $project->slug) }}" class="btn btn-edit px-4"><i class="fa-solid fa-pen-to-square"></i></a>
-              <form class="d-inline delete-element" action="{{ route("admin.projects.destroy", $project->slug) }}" method="POST" method="POST" data-element-name="{{ $project->title }}">
+              <form class="d-inline delete-element" action="{{ route("admin.projects.destroy", $project->slug) }}" method="POST" data-element-name="{{ $project->title }}">
                 @csrf
                 @method("DELETE")
                 <button type="submit" class="btn btn-delete px-4" value="delete"><i class="fa-solid fa-trash-can-arrow-up"></i><span>Delete</span></button>

@@ -84,7 +84,7 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $rules= $this->rules;
-        $rules['type']= ['requered', 'string', 'min:2', 'max:10', Rule::unique('types')->ignore($type->id)];
+        $rules['type']= ['required', 'string', 'min:2', 'max:10', Rule::unique('types')->ignore($type->id)];
         $data= $request->validate($rules);
 
         $type->update($data);
